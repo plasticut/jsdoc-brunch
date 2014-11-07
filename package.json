@@ -1,0 +1,19 @@
+{
+  "name": "jsdoc-brunch",
+  "version": "0.0.1",
+  "description": "Adds JSDoc support to brunch.",
+  "main": "./lib/index",
+  "author": {
+    "name": "plasticut@gmail.com"
+  },
+  "homepage": "https://github.com/plasticut/jsdoc-brunch",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:plasticut/jsdoc-brunch.git"
+  },
+  "license": "BSD",
+  "dependencies": {
+    "jsdoc": "~3.3.0-alpha3",
+    "exec-sync": "~0.1.6"
+  }
+}
