@@ -3,7 +3,20 @@ var data = obj;
 var self = this;
 ?>
 <dt>
-    <h4 class="name" id="<?js= id ?>"><?js= data.attribs + (kind === 'class' ? 'new ' : '') + name + (kind !== 'event' ? data.signature : '') ?></h4>
+    <div class="nameContainer<?js if (data.inherited) { ?> inherited<?js } ?>">
+        <h4 class="name" id="<?js= id ?>">
+            <?js if (data.inherited || data.inherits) { ?>
+                <span class="inherited"><?js= this.linkto(data.inherits, 'inherited') ?></span>
+            <?js } ?>
+            <?js= data.attribs + (kind === 'class' ? 'new ' : '') + (data.scope === 'static' ? longname : name) + (kind !== 'event' ? data.signature : '') ?>
+        </h4>
+
+        <?js if (data.meta) {?>
+        <div class="tag-source">
+            <?js= self.linkto(meta.filename) ?>, <?js= self.linkto(meta.filename, 'line ' + meta.lineno, null, 'line' + meta.lineno) ?>
+        </div>
+        <?js } ?>
+    </div>
 
     <?js if (data.summary) { ?>
     <p class="summary"><?js= summary ?></p>
@@ -32,7 +45,6 @@ var self = this;
     <?js } ?>
 
     <?js if (data.params && params.length) { ?>
-        <h5>Parameters:</h5>
         <?js= this.partial('params.tmpl', params) ?>
     <?js } ?>
 
@@ -46,14 +58,14 @@ var self = this;
     <?js } ?>
 
     <?js if (data.listens && listens.length) { ?>
-    <h5>Listens to Events:</h5>
+    <h5>Слушает события:</h5>
     <ul><?js listens.forEach(function(f) { ?>
         <li><?js= self.linkto(f) ?></li>
     <?js }); ?></ul>
     <?js } ?>
 
     <?js if (data.listeners && listeners.length) { ?>
-    <h5>Listeners of This Event:</h5>
+    <h5>Слушатели этого события:</h5>
     <ul><?js listeners.forEach(function(f) { ?>
         <li><?js= self.linkto(f) ?></li>
     <?js }); ?></ul>
@@ -72,16 +84,9 @@ var self = this;
     } } ?>
 
     <?js if (data.returns && returns.length) { ?>
-    <h5>Returns:</h5>
-    <?js if (returns.length > 1) { ?><ul><?js
-        returns.forEach(function(r) { ?>
-            <li><?js= self.partial('returns.tmpl', r) ?></li>
-        <?js });
-    ?></ul><?js } else {
-        returns.forEach(function(r) { ?>
-            <?js= self.partial('returns.tmpl', r) ?>
-        <?js });
-    } } ?>
+    <?js if (returns.length > 1) { ?><h5>Returns:</h5><?js } ?>
+    <?js= self.partial('returns.tmpl', data.returns) ?>
+    <?js } ?>
 
     <?js if (data.examples && examples.length) { ?>
         <h5>Example<?js= examples.length > 1? 's':'' ?></h5>
