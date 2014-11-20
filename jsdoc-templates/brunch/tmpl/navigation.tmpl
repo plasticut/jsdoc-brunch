@@ -2,8 +2,10 @@
 var self = this;
 ?>
 <div class="navigation">
-    <h3 class="applicationName"><a href="../index.html"><span class="glyphicon glyphicon-home"></span> </a></h3>
-    <h3 class="applicationName"><a href="index.html"><?js= env.conf.templates.applicationName ?></a></h3>
+    <h3 class="applicationName">
+        <a href="../"><span class="glyphicon glyphicon-home"></span></a>
+        <a href="index.html"> <?js= env.conf.templates.applicationName ?></a>
+    </h3>
 
     <div class="search">
         <input id="search" type="text" class="form-control input-sm" placeholder="Search Documentations">
